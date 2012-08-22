@@ -13,7 +13,7 @@ class Bookmark
       id: id,
       name: name,
       url: url,
-      folder: folder
+      folder: folder && folder.as_json
     }
   end
 end

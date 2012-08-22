@@ -15,6 +15,17 @@ App.class_eval do
 
   put '/bookmarks/:id' do
     clean_params
+
+    if params["folder"]
+      folder = Folder.get(params["folder"]["id"])
+
+      if folder
+        params["folder"] = folder
+      else
+        return [422, {"folder" => "could not be found"}.to_json]
+      end
+    end
+
     bookmark = Bookmark.get(params.delete("id"))
 
     if bookmark
@@ -32,6 +43,17 @@ App.class_eval do
 
   post '/bookmarks' do
     clean_params
+
+    if params["folder"]
+      folder = Folder.get(params["folder"]["id"])
+
+      if folder
+        params["folder"] = folder
+      else
+        return [422, {"folder" => "could not be found"}.to_json]
+      end
+    end
+
     bookmark = Bookmark.create params
 
     if bookmark.valid?

@@ -6,4 +6,11 @@ class Folder
   has n, :bookmarks, "Bookmark", child_key: "folder_id"
 
   validates_presence_of :name
+
+  def as_json
+    {
+      id: id,
+      name: name
+    }
+  end
 end
