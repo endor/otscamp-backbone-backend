@@ -28,7 +28,7 @@ describe "folders" do
 
   describe "post /folders" do
     it "creates a folder and returns it" do
-      post "/folders", name: "Satu"
+      post "/folders", {name: "Satu"}.to_json
       last_response.status.should eql(201)
       json_response["name"].should eql("Satu")
       get "/folders/1"

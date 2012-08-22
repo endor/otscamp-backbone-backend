@@ -30,7 +30,7 @@ describe "bookmarks" do
 
   describe "post /bookmarks" do
     it "creates a bookmark and returns it" do
-      post "/bookmarks", name: "Muumimaailma", url: "http://www.muumimaailma.fi/"
+      post "/bookmarks", {name: "Muumimaailma", url: "http://www.muumimaailma.fi/"}.to_json
       last_response.status.should eql(201)
       json_response["name"].should eql("Muumimaailma")
       get "/bookmarks/1"
@@ -46,7 +46,7 @@ describe "bookmarks" do
     
     it "creates bookmarks with folders" do
       Folder.create! name: "Satu"
-      post "/bookmarks", name: "Muumimaailma", url: "http://www.muumimaailma.fi/", folder: {id: 1}
+      post "/bookmarks", {name: "Muumimaailma", url: "http://www.muumimaailma.fi/", folder: {id: 1}}.to_json
       last_response.status.should eql(201)
       get "/bookmarks/1"
       json_response["name"].should eql("Muumimaailma")
@@ -54,7 +54,7 @@ describe "bookmarks" do
     end
 
     it "returns an error if the folder could not be found" do
-      post "/bookmarks", name: "Muumimaailma", url: "http://www.muumimaailma.fi/", folder: {id: 1}
+      post "/bookmarks", {name: "Muumimaailma", url: "http://www.muumimaailma.fi/", folder: {id: 1}}.to_json
       json_response["folder"].should eql("could not be found")
       last_response.status.should eql(422)
     end
@@ -66,7 +66,7 @@ describe "bookmarks" do
     end
 
     it "updates a bookmark and returns it" do
-      put "/bookmarks/1", name: "Muumit"
+      put "/bookmarks/1", {name: "Muumit"}.to_json
       last_response.status.should eql(200)
       json_response["name"].should eql("Muumit")
       get "/bookmarks/1"
@@ -74,12 +74,12 @@ describe "bookmarks" do
     end
 
     it "returns 404 if the bookmark could not be found" do
-      put "/bookmarks/2", name: "Muumit"
+      put "/bookmarks/2", {name: "Muumit"}.to_json
       last_response.status.should eql(404)
     end
 
     it "returns the errors if the bookmark couldn't be updared" do
-      put "/bookmarks/1", name: ""
+      put "/bookmarks/1", {name: ""}.to_json
       last_response.status.should eql(422)
       json_response["name"].should eql(["Name must not be blank"])
       get "/bookmarks/1"
@@ -88,7 +88,7 @@ describe "bookmarks" do
 
     it "updates bookmarks with folders" do
       Folder.create! name: "Satu"
-      put "/bookmarks/1", name: "Muumit", folder: {id: 1}
+      put "/bookmarks/1", {name: "Muumit", folder: {id: 1}}.to_json
       last_response.status.should eql(200)
       get "/bookmarks/1"
       json_response["name"].should eql("Muumit")
@@ -96,7 +96,7 @@ describe "bookmarks" do
     end
 
     it "returns an error if the folder could not be found" do
-      put "/bookmarks/1", name: "Muumit", folder: {id: 1}
+      put "/bookmarks/1", {name: "Muumit", folder: {id: 1}}.to_json
       json_response["folder"].should eql("could not be found")
       last_response.status.should eql(422)
     end

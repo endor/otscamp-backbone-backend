@@ -35,9 +35,20 @@ class App
 
   before do
     content_type(:json)
+
+    if ['POST', 'PUT'].include?(request.request_method)
+      body = request.body.read
+      if body && body != ""
+        @params = JSON.parse(body)
+      end
+    end
   end
 
   helpers do
+    def params
+      @params
+    end
+
     def base_url
       "#{request.scheme}://#{request.host}"
     end
