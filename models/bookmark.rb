@@ -8,12 +8,17 @@ class Bookmark
 
   validates_presence_of :name, :url
 
-  def as_json
-    {
+  def as_json(with_folder = true)
+    json = {
       id: id,
       name: name,
-      url: url,
-      folder: folder && folder.as_json
+      url: url
     }
+
+    if with_folder && folder
+      json[:folder] = folder.as_json(false)
+    end
+
+    json
   end
 end

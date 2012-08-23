@@ -58,4 +58,17 @@ describe "folders" do
       last_response.status.should eql(404)
     end
   end
+
+  describe "folder with bookmarks" do
+    it "returns a folder with all its bookmarks" do
+      post "/folders", {name: "Satu"}.to_json
+      post "/bookmarks", {name: "Muumimaailma", url: "http://www.muumimaailma.fi/", folder: {id: 1}}.to_json
+      post "/bookmarks", {name: "Muumi", url: "http://fi.wikipedia.org/wiki/Muumi", folder: {id: 1}}.to_json
+      get "/folders/1"
+      json_response["bookmarks"] = [
+        {"id" => 1, "name" => "Muumimaailma", "url" => "http://www.muumimaailma.fi/"},
+        {"id" => 2, "name" => "Muumi", "url" => "http://fi.wikipedia.org/wiki/Muumi"}
+      ]
+    end
+  end
 end
