@@ -1,1 +1,100 @@
-hello world
+<html>
+
+<head>
+<title>Intro to Backbone.js</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" />
+
+
+<!-- Load depenencies, jQuery, underscore.js (a javascript framework used by backbone.js) and backbone.js -->
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://raw.github.com/documentcloud/underscore/master/underscore.js"></script>
+<script type="text/javascript" src="https://raw.github.com/documentcloud/backbone/master/backbone.js"></script>
+
+
+<!--                 Define templates used by views                         -->
+
+
+
+<!--                    Main app starts here                                -->
+
+<script type="text/javascript">
+	
+// Global config, some global variables that we use everywhere
+config = {};
+config.BASEURL = "http://localhost:9292";
+
+
+/* -------------------------------- Helpers ---------------------------------*/
+
+
+
+/* -------------------------------- Models ----------------------------------*/
+/*
+* The bookmark model represents one bookmark
+*
+*/
+window.Bookmark = Backbone.Model.extend({
+	
+	urlRoot: config.BASEURL + "/bookmarks",
+
+    initialize: function() {
+        console.log("Bookmark initialized");
+    }
+
+});
+
+/* --------------------------------- Collections ----------------------------*/
+
+
+
+/* --------------------------------- Views --------------------------------- */
+
+
+</script>
+
+
+</head>
+
+<body>
+	<div class="container">
+
+	<div class="well well-large">
+		<h1>Bookmarker</h1>
+	</div>
+
+	<ul id="folderList">
+	</ul>
+	<br/>
+	<br/>
+	<div id="folderContent">
+	</div>
+
+
+	<br/><br/><br/><br/><br/><br/>
+
+	<h5>Sandbox</h5>
+	
+	<div id="oneBookmark">
+	</div>
+
+	<ul id="bookmarkList">
+	</ul>
+
+</div>
+	
+</body>
+
+<script type="text/javascript">
+
+/*------------------------ Bootstrapping / Application run ------------------------------------- */
+/**
+* Put bootstrapping code here that you don't want to
+* execute every time, after realoading your browser, in your javascript console, 
+*
+*/
+
+
+</script>
+
+</html>
